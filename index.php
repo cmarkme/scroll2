@@ -170,7 +170,7 @@ var mv=0;
 	setInterval(
 
 		function() {
-			$("#container").css('height',parseInt($("#firstGalleryDiv").css('height')))
+			//$("#container").css('height',parseInt($("#firstGalleryDiv").css('height')))
 				$("#slit").css('height',parseInt($("#firstGallery").css('height')));
 
 			var height1=parseInt($("#container").css('height').replace('px', ''));		

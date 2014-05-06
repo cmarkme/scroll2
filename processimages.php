@@ -6,7 +6,7 @@ $link=mysqli_connect("localhost",$user,$password,"a8351038_scrolle");
 // Check connection
 if (mysqli_connect_errno($link))
 {
-echo "Failed to connect t MySQL: " . mysqli_connect_error();
+	echo "Failed to connect t MySQL: " . mysqli_connect_error();
 }
 
 
@@ -14,10 +14,10 @@ $query = "SELECT * FROM row_items" or die("Error in the consult.." . mysqli_erro
 $result1 = mysqli_query($link, $query);
 
 while($row1 = mysqli_fetch_array($result1)) {
-$item[]=$row1;
+	$item[]=$row1;
 
-} 
-print_r($item);
+}
+//echo "<pre>";print_r($item[0]['file']);echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -35,15 +35,10 @@ print_r($item);
 <body>
 
 <div>
-<form action="processimages.php" method="post">
-<p>
-Text below Image Overlay
-</p>
-<input type="text" name="bitbelowlightbox" />
-</form>
+
 </div>
 <?php
-function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth,$link) 
+function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth,$link,$item) 
 {
 	// open the directory
 	$dir = opendir( $pathToImages );
@@ -55,7 +50,7 @@ function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth,$link)
 		// continue only if this is a JPEG image
 		if ( strtolower($info['extension']) == 'jpg' ) 
 		{
-			echo "Creating thumbnail for {$fname} <br />";
+			//echo "Creating thumbnail for {$fname} <br />";
 
 			// load image and get image size
 			$img = imagecreatefromjpeg( "{$pathToImages}{$fname}" );
@@ -79,25 +74,24 @@ function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth,$link)
 			$thumb=$pathToThumbs.$fname;
 			$file=$pathToImages.$fname;
 			$go=0;
-			echo $thumb.$value['thumb'];
+			//echo $thumb.$value['thumb'];
 			foreach($item as $key => $value)
 			{
-				//echo $thumb." ".$value['thumb'];	
-				if(($value['file'] == $file) && ($value['thumb'] == $thumb))
-				{
-					$go=1;echo $go;
-				}
-			}
-			$thumb=mysqli_real_escape_string($link,$thumb);
-			$file=mysqli_real_escape_string($link,$file);
 
-			if(!$go)
-			{
-				
-				$sql = "INSERT INTO row_items (file,thumb)VALUES ('".$file."','".$thumb."')";
-				
-				mysqli_query($link,$sql);
+				//echo $thumb." ".$value['thumb'];	
+				if(($value['file'] != $file) && ($value['thumb'] != $thumb))
+				{
+					//	$go=1;echo $go;
+					//	echo $value['file']."<br/>";
+					$thumb=mysqli_real_escape_string($link,$thumb);
+					$file=mysqli_real_escape_string($link,$file);
+					$sql = "INSERT INTO row_items (file,thumb)VALUES ('".$file."','".$thumb."')";
+
+					mysqli_query($link,$sql);
+				}
+
 			}
+
 
 		}
 	}
@@ -110,6 +104,6 @@ function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth,$link)
 // We are assuming that the path will be a relative path working 
 // both in the filesystem, and through the web for links
 
-createThumbs("bigimages/","thumbnails/",$width_of_thumb,$link);
+createThumbs("bigimages/","thumbnails/",$width_of_thumb,$link,$item);
 
 ?>

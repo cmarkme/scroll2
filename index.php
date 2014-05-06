@@ -78,9 +78,9 @@ foreach($item as $key => $value)
 {
 	echo '
 		<li>
-		<a rel="gallery" caption="'.$value['content'].' <span style=\'display: block;background-color: brown;-webkit-border-radius: 15px;border-radius: 15px;\' data-score=\''.$value['vote'].'\' data-postid=\''.$value['id'].'\' class=\'ttl\'>votes : <span class=\'ttll\'></span> 
-		&nbsp;&nbsp;&nbsp;	vote <img onclick=\'vote()\' class=\'vote\' data-action=\'up\' src=\'images/thumb-up.png\'></span>
-		 '.$value['id'].'" class="fancybox" href="'.$value['file'].'">
+			<a rel="gallery" caption="'.$value['content'].' <span style=\'display: block;background-color: brown;-webkit-border-radius: 15px;border-radius: 15px;\' data-score=\''.$value['vote'].'\' data-postid=\''.$value['id'].'\' class=\'ttl\'>votes : <span class=\'ttll\'></span> 
+		&nbsp;&nbsp;&nbsp;	vote <img onclick=\'vote()\' class=\'vote\' data-action=\'up\' src=\'images/thumb-up.png\'</span>
+		" '.$value['id'].'" class="fancybox" href="'.$value['file'].'">
 		<img alt="Palm Tree" src="'.$value['thumb'].'"/>
 		<div class="caption fancybox">
 		<h3>'.$value['InnerTitle'].'</h3>
@@ -135,43 +135,43 @@ foreach($item as $key1 => $value1)
 </html>
 <script type="text/javascript">
 $(window).load(function() {
-$(".fancybox").fancybox({
+	$(".fancybox").fancybox({
 
-	openEffect : 'elastic',
-		openSpeed  : 150,
-		closeEffect : 'elastic',
-		closeSpeed  : 150,
-		closeClick : true,
-		afterShow: function(){
-			$('.ttll').html( function(){votedb(1)});
-		} ,
-			beforeLoad: function() {
-				this.title = $(this.element).attr('caption');
+		openEffect : 'elastic',
+			openSpeed  : 150,
+			closeEffect : 'elastic',
+			closeSpeed  : 150,
+			closeClick : true,
+			afterShow: function(){
+				$('.ttll').html( function(){votedb(1)});
+			} ,
+				beforeLoad: function() {
+					this.title = $(this.element).attr('caption');
 
-			}
-
-
-});
-//$.fancybox.center
-/////////////////////////////
+				}
 
 
-var Globalspeed=(10000/parseInt($("#container").css('height').replace('px', '')));
-
-var scroller = $('#firstGalleryDiv');
-var speed=10000;
-var scrollerContent = scroller.find('ul');
+	});
+	//$.fancybox.center
+	/////////////////////////////
 
 
-$("#firstGallery").ImageOverlay();
-$("#firstGalleryspill").ImageOverlay();
-var mv=0;	
+	var Globalspeed=(10000/parseInt($("#container").css('height').replace('px', '')));
+
+	var scroller = $('#firstGalleryDiv');
+	var speed=10000;
+	var scrollerContent = scroller.find('ul');
+
+
+	$("#firstGallery").ImageOverlay();
+	$("#firstGalleryspill").ImageOverlay();
+	var mv=0;	
 
 	setInterval(
 
 		function() {
 			//$("#container").css('height',parseInt($("#firstGalleryDiv").css('height')))
-				$("#slit").css('height',parseInt($("#firstGallery").css('height')));
+			$("#slit").css('height',parseInt($("#firstGallery").css('height')));
 
 			var height1=parseInt($("#container").css('height').replace('px', ''));		
 
@@ -180,49 +180,49 @@ var mv=0;
 		}	,50);
 
 
-			var firstshot=1;
+	var firstshot=1;
 	var heightoffirstGalleryDiv=parseInt($("#firstGalleryDiv").css('height').replace('px', ''));
 	var currentanim=heightoffirstGalleryDiv;
 
-		var animinterval=setInterval(
+	var animinterval=setInterval(
 
-			function() {
-
-
+		function() {
 
 
-				if( parseInt($("#firstGalleryDiv").css('top').replace('px', '')) < -parseInt($("#firstGallery").css('height').replace('px', ''))) {
-					var heightoful=parseInt($("#firstGallery").css('height').replace('px', ''));
-					var height1=parseInt($("#container").css('height').replace('px', ''));
-					$("#firstGalleryDiv").stop( true);
-					$("#firstGalleryDiv").css('top','0px');
-					currentanim=heightoffirstGalleryDiv;
 
 
-				}
-				$('#firstGalleryDiv').animate({
-					'top': -currentanim+'px'
-				}, (parseInt($("#firstGallery").css('height').replace('px', ''))*75),"linear");
-				currentanim=currentanim+currentanim;
+			if( parseInt($("#firstGalleryDiv").css('top').replace('px', '')) < -parseInt($("#firstGallery").css('height').replace('px', ''))) {
+				var heightoful=parseInt($("#firstGallery").css('height').replace('px', ''));
+				var height1=parseInt($("#container").css('height').replace('px', ''));
+				$("#firstGalleryDiv").stop( true);
+				$("#firstGalleryDiv").css('top','0px');
+				currentanim=heightoffirstGalleryDiv;
+
+
 			}
-		,50);
+			$('#firstGalleryDiv').animate({
+				'top': -currentanim+'px'
+			}, (parseInt($("#firstGallery").css('height').replace('px', ''))*75),"linear");
+			currentanim=currentanim+currentanim;
+		}
+	,50);
 
-			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			setInterval(
+	setInterval(
 
-				function() {
-					if( parseInt($("#firstGalleryDiv").css('height').replace('px', '')) > (heightoffirstGalleryDiv*2) ) {
-
-
-						var $lis = $("ul li");
-						$lis.slice(0, Math.floor($lis.length/3)).remove();
-
-					}
+		function() {
+			if( parseInt($("#firstGalleryDiv").css('height').replace('px', '')) > (heightoffirstGalleryDiv*2) ) {
 
 
-				}
-		,50);
+				var $lis = $("ul li");
+				$lis.slice(0, Math.floor($lis.length/3)).remove();
+
+			}
+
+
+		}
+	,50);
 
 
 
@@ -230,7 +230,7 @@ var mv=0;
 
 
 
-		</script>
+	</script>
 <script type="text/javascript">
 
 // ajax setup

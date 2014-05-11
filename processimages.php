@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-error_reporting(0);
+error_reporting(1);
 $link=mysqli_connect("localhost",$user,$password,"a8351038_scrolle");
 
 // Check connection
@@ -48,7 +48,7 @@ function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth,$link,$item)
 		// parse path for the extension
 		$info = pathinfo($pathToImages . $fname);
 		// continue only if this is a JPEG image
-		if ( strtolower($info['extension']) == 'jpg' ) 
+		if($fname != '.' && $fname !='..')
 		{
 			//echo "Creating thumbnail for {$fname} <br />";
 
@@ -74,23 +74,29 @@ function createThumbs( $pathToImages, $pathToThumbs, $thumbWidth,$link,$item)
 			$thumb=$pathToThumbs.$fname;
 			$file=$pathToImages.$fname;
 			$go=0;
-			//echo $thumb.$value['thumb'];
+			//*echo $thumb.$value['thumb'];
 			foreach($item as $key => $value)
 			{
 
 				//echo $thumb." ".$value['thumb'];	
-				if(($value['file'] != $file) && ($value['thumb'] != $thumb))
-				{
-					//	$go=1;echo $go;
-					//	echo $value['file']."<br/>";
-					$thumb=mysqli_real_escape_string($link,$thumb);
-					$file=mysqli_real_escape_string($link,$file);
-					$sql = "INSERT INTO row_items (file,thumb)VALUES ('".$file."','".$thumb."')";
-
-					mysqli_query($link,$sql);
+				if(($value['file'] == $file) && ($value['thumb'] == $thumb))
+				{	
+				
+					
+						$go=1;
+				
 				}
-
 			}
+			if($go==0)
+			{
+				$thumb=mysqli_real_escape_string($link,$thumb);
+				$file=mysqli_real_escape_string($link,$file);
+				$sql = "INSERT INTO row_items (file,thumb)VALUES ('".$file."','".$thumb."')";
+
+				mysqli_query($link,$sql);
+			}
+
+
 
 
 		}

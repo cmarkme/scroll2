@@ -1,5 +1,9 @@
 <?php
-xdebug_break();include('config.php');
+/*
+ *scroll2
+ *
+ */
+include('config.php');
 error_reporting(0);
 $link=mysqli_connect("localhost",$user,$password,"a8351038_scrolle");
 
